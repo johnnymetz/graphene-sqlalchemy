@@ -6,14 +6,14 @@ from sqlalchemy.orm import class_mapper, object_mapper
 from sqlalchemy.orm.exc import UnmappedClassError, UnmappedInstanceError
 
 
-def get_session(context):
-    return context.get("session")
+def get_session(context, session_name="session"):
+    return context.get(session_name)
 
 
-def get_query(model, context):
+def get_query(model, context, session_name="session"):
     query = getattr(model, "query", None)
     if not query:
-        session = get_session(context)
+        session = get_session(context, session_name)
         if not session:
             raise Exception(
                 "A query in the model Base or a session in the schema is required for querying.\n"

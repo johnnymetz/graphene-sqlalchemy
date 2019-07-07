@@ -276,14 +276,14 @@ class SQLAlchemyObjectType(ObjectType):
         return isinstance(root, cls._meta.model)
 
     @classmethod
-    def get_query(cls, info):
+    def get_query(cls, info, session_name="session"):
         model = cls._meta.model
-        return get_query(model, info.context)
+        return get_query(model, info.context, session_name)
 
     @classmethod
-    def get_node(cls, info, id):
+    def get_node(cls, info, id, session_name="session"):
         try:
-            return cls.get_query(info).get(id)
+            return cls.get_query(info, session_name).get(id)
         except NoResultFound:
             return None
 

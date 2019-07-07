@@ -67,3 +67,6 @@ target/
 # Databases
 *.sqlite3
 .vscode
+
+# mypy
+.mypy_cache/
